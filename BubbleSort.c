@@ -13,35 +13,34 @@ void bubblesort(int arr[],int n)
   int i,j,opcount=0;
   for(i=0;i<n-1;i++)
   {
-  	for(j=0;j<n-1-i;j++)
-  	{
-  		opcount++;
-  		if(arr[j]>arr[j+1])
+      for(j=0;j<n-1-i;j++)
+  	  {
+  	     opcount++;
+  	     if(arr[j]>arr[j+1])
   		{
-  			swap(&arr[j],&arr[j+1]);
-            
+  	           swap(&arr[j],&arr[j+1]);
   		}
-  	}
-  }
-  	printf("Sorted Array after bubblesort:\n");
-	for(i=0;i<n;i++)
+          }
+   }
+   printf("Sorted Array after bubblesort:\n");
+   for(i=0;i<n;i++)
     {
         printf("%d ",arr[i]);
     }
-    printf("\n");
+  printf("\n");
   printf("Opcount of bubble sort:%d\n",opcount);
 }
 
 int main()
 {
-	int a[100],n,i;
-	printf("Enter number of elements:\n");
-	scanf("%d",&n);
+    int a[100],n,i;
+    printf("Enter number of elements:\n");
+    scanf("%d",&n);
     printf("Enter elements:\n");
     for(i=0;i<n;i++)
     {
     	scanf("%d",&a[i]);
     }
-	bubblesort(a,n);
-	return 0;
+    bubblesort(a,n);
+    return 0;
 }
