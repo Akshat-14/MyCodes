@@ -1,5 +1,4 @@
 #include<stdio.h>
-
 void leftrotate(int arr[],int d,int n)
 { 
    int b[50];
