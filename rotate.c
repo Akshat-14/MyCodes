@@ -26,10 +26,10 @@ void leftrotate(int arr[],int d,int n)
 int main()
 {
 	int n,d;
-    int a[50];
+        int a[50];
 	printf("Enter the size of array:");
 	scanf("%d",&n);
-    int i;
+        int i;
 	printf("Enter the rotation number:");
 	scanf("%d",&d);
 	printf("Enter elements:\n");
@@ -37,9 +37,9 @@ int main()
 	{
           scanf("%d",&a[i]);
 	}
-    leftrotate(a,d,n);    
-    printf("Rotated Array:\n");
-    for(i=0;i<n;i++)
+        leftrotate(a,d,n);    
+        printf("Rotated Array:\n");
+        for(i=0;i<n;i++)
 	{
           printf("%d ",a[i]);
 	}
