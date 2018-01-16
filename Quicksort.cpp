@@ -13,7 +13,7 @@ int partition(int a[],int start,int end)
 		if(a[i]<=pivot)
 		{
 		   swap(a[i],a[pIndex]);
-           pIndex++;
+                   pIndex++;
 		}
 	}
     swap(a[pIndex],a[end]);
