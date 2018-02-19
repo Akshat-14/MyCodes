@@ -49,7 +49,7 @@ int tywin(int arr[],int n,int k)
 int main()
 {
     int a[max],b[max];
-    int n,t,k,i,j,x;
+    int n,t,k,i,j,x=0;
     cin>>t;
     int temp=t;
     while(t>0)
