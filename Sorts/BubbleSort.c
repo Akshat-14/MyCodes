@@ -3,7 +3,7 @@ Type - Brute Force
 Worst and Average time complexity : O(n^2) // Worst when array is descending
 Best case : O(n) // when array is already sorted
 Stable : Yes
-/*
+*/
 #include <stdio.h>
 #include <stdlib.h>
 
