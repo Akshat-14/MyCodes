@@ -1,3 +1,7 @@
+/* Type - Divide And Conquer 
+   Stable -  NO
+   Average Time Complexity -- O(nlogn)
+   Worst -- O(n^2)  // when pivot is picket as largest or smallest in the array */
 #include<iostream>
 #include<algorithm>
 using namespace std;
