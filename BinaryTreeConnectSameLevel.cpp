@@ -44,7 +44,7 @@ void inorder(Node *root)
 	{
 	inorder(root->left);
 	cout << root->data<<" ";
-    inorder(root->right);
+        inorder(root->right);
     }
 }
 Node *create()
@@ -74,7 +74,7 @@ void compute(Node *root)
 	 printf("nextRight of %d is %d \n", root->data,root->nextright ? root->nextright->data : -1);
 	 compute(root->left);
 	 compute(root->right);
-    }
+        }
 }
 
 int main()
