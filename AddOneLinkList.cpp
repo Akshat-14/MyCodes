@@ -22,13 +22,13 @@ Node *insert(Node *p,int x)
 	{
 	    return temp;
 	} 
-    Node *curr = p;
-    while(curr->next!=NULL)   //traverse to end
-    {
-    	curr=curr->next;
-    }
-    curr->next = temp;
-    return p;
+        Node *curr = p;
+        while(curr->next!=NULL)   //traverse to end
+        {
+    	    curr=curr->next;
+        }
+        curr->next = temp;
+        return p;
 }
 
 void print(Node* p)
@@ -60,39 +60,39 @@ Node* addNum(Node *p,Node *q)
 	Node * result = NULL;
 	Node * curr1 = p;
 	Node * curr2 = q; 
-    while(curr1!=NULL && curr2!=NULL)
-    {
-       sum = 0;
-       sum = carry + curr1->data + curr2->data;
-       carry = sum/10;
-       sum = sum%10;
-       result=insert(result,sum);
-       curr1=curr1->next;
-       curr2=curr2->next;
-    }
-    sum = 0;
-    if(curr1==NULL)
-    {
-     	sum = carry + curr2->data;
-     	result = insert(result,sum);
-        curr2=curr2->next;
-        while(curr2!=NULL)
+        while(curr1!=NULL && curr2!=NULL)
         {
+           sum = 0;
+           sum = carry + curr1->data + curr2->data;
+           carry = sum/10;
+           sum = sum%10;
+           result=insert(result,sum);
+           curr1=curr1->next;
+           curr2=curr2->next;
+        }
+        sum = 0;
+        if(curr1==NULL)
+        {
+     	   sum = carry + curr2->data;
+     	   result = insert(result,sum);
+           curr2=curr2->next;
+           while(curr2!=NULL)
+             {
         	result = insert(result,curr2->data);
         	curr2=curr2->next;
+             }
         }
-    }
-    else if(curr2==NULL)
-    {
+        else if(curr2==NULL)
+        {
         sum = carry + curr1->data;
         result = insert(result,sum);
         curr1 = curr1->next;
         while(curr1!=NULL)
-        {
+           {
         	result = insert(result,curr1->data);
         	curr1=curr1->next;
-        }    
-    }
+           }    
+        }
     result = reverse(result);
     return result;
 }
