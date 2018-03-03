@@ -1,3 +1,9 @@
+/* Use two stacks. First tranfer contents of Stack S1 to S2.
+Then push the element x in Stack S1.
+Finally transfer the contents of Stack S2 back to S1.
+*/
+
+
 #include<bits/stdc++.h>
 using namespace std;
 class Queue
