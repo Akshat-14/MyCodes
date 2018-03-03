@@ -1,3 +1,8 @@
+/*
+Push the elemt in Queue q2.
+now tranfer all the contents of queue q1 to q2.
+Now swap the queues.
+*/
 #include<bits/stdc++.h>
 using namespace std;
 class Stack
