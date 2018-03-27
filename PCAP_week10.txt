@@ -1,0 +1,278 @@
+--------------------------------------------------LAB10
+
+////////////////////////Q1
+
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+__global__ void FindSubstring(char *a, char *b, int lenB)
+{
+	int i = threadIdx.x;
+	int matched=1;
+	for(int j=0;j<lenB;j++)
+	{
+		if(a[i+j]!=b[j])
+		{
+			matched=0;
+			break;
+		}
+	}
+	if(matched==1)
+		printf("Substring found at index %d\n",i);
+}
+
+int main(void)
+{
+	char str[100],substring[100];
+	int n,m;
+	printf("\nEnter the string: ");
+	gets(str);
+	n=strlen(str);
+	printf("\nEnter the substring: ");
+	gets(substring);
+	gets(substring);
+	m=strlen(substring);
+	char *d_str,*d_sub;
+
+	cudaMalloc((void**)&d_str,n*sizeof(char));
+	cudaMalloc((void**)&d_sub,m*sizeof(char));
+
+	cudaMemcpy(d_str,str,n*sizeof(char),cudaMemcpyHostToDevice);
+	cudaMemcpy(d_sub,substring,m*sizeof(char),cudaMemcpyHostToDevice);
+
+	cudaError_t error = cudaGetLastError();
+	if(error != cudaSuccess)
+	{
+		printf("CUDA Error: %s\n",cudaGetErrorString(error));
+	}
+
+	FindSubstring<<<1,n-m+1>>>(d_str,d_sub,m); //n threads
+
+	error = cudaGetLastError();
+	if(error != cudaSuccess)
+	{
+		printf("CUDA Error: %s\n",cudaGetErrorString(error));
+	}
+
+	cudaFree(d_str);
+	cudaFree(d_sub);
+	return 0;
+}
+
+----------------------------------------------******************************
+
+////////////////////Q2
+
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+__global__ void Reverse(char *a, int len)
+{
+	int i = threadIdx.x;
+	char ch;
+	ch=a[i];
+	a[i]=a[len-i-1];
+	a[len-i-1]=ch;
+}
+
+int main(void)
+{
+	char str[100];
+	int n;
+	printf("\nEnter the string: ");
+	gets(str);
+	n=strlen(str);
+	char *d_str;
+
+	cudaMalloc((void**)&d_str,n*sizeof(char));
+
+	cudaMemcpy(d_str,str,n*sizeof(char),cudaMemcpyHostToDevice);
+
+	cudaError_t error = cudaGetLastError();
+	if(error != cudaSuccess)
+	{
+		printf("CUDA Error: %s\n",cudaGetErrorString(error));
+	}
+
+	Reverse<<<1,(n/2)>>>(d_str,n); //n threads
+
+	error = cudaGetLastError();
+	if(error != cudaSuccess)
+	{
+		printf("CUDA Error: %s\n",cudaGetErrorString(error));
+	}
+
+	cudaMemcpy(str,d_str,n*sizeof(char),cudaMemcpyDeviceToHost);
+	printf("\nAfter Reverse.\n");
+	printf("%s\n",str);
+
+	cudaFree(d_str);
+	return 0;
+}
+-------------------------------------------------*******************************
+
+///////////////////////Q3
+
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+__global__ void getBinary(char *a, long *opArray, int len)
+{
+	int i = threadIdx.x;
+	int ascii=a[i];
+	long ans=0;
+	long rem;
+	int numBits=0;
+	while(ascii>0)
+	{
+		rem=ascii%2;
+		ans=ans*10+rem;
+		ascii/=2;
+		numBits++;
+	}
+	long revAns=0;
+	while(ans>0 || numBits>0)
+	{
+		rem=ans%10;
+		ans/=10;
+		revAns=revAns*10+rem;
+		numBits--;
+	}
+	opArray[i]=revAns;
+}
+
+int main(void)
+{
+	char str[100];
+	int n;
+	printf("\nEnter the string: ");
+	gets(str);
+	n=strlen(str);
+	char *d_str;
+	long *ansArray;
+	long finalArr[100];
+
+	cudaMalloc((void**)&d_str,n*sizeof(char));
+	cudaMalloc((void**)&ansArray,n*sizeof(long));
+
+	cudaMemcpy(d_str,str,n*sizeof(char),cudaMemcpyHostToDevice);
+
+	cudaError_t error = cudaGetLastError();
+	if(error != cudaSuccess)
+	{
+		printf("CUDA Error: %s\n",cudaGetErrorString(error));
+	}
+
+	getBinary<<<1,n>>>(d_str,ansArray,n); //n threads
+
+	error = cudaGetLastError();
+	if(error != cudaSuccess)
+	{
+		printf("CUDA Error: %s\n",cudaGetErrorString(error));
+	}
+
+	cudaMemcpy(finalArr,ansArray,n*sizeof(long),cudaMemcpyDeviceToHost);
+	for(int i=0;i<n;i++)
+		printf("%ld\n",finalArr[i]);
+
+	cudaFree(d_str);
+	cudaFree(ansArray);
+	return 0;
+}
+
+--------------------------------------------*****************************************
+
+////////////////////////////////////////Q4
+
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+__global__ void FindWordCount(char *a,char *b,int lenB,int* count)
+{
+	int i = threadIdx.x;
+	if(i==0 || a[i-1]==' ')//Is start of word
+	{
+		if(a[i+lenB]==' ' || a[i+lenB]=='\0')//Same word length
+		{
+			int matched=1;
+			for(int j=0;j<lenB;j++)
+			{
+				if(a[i+j]!=b[j])
+				{
+					matched=0;
+					break;
+				}
+			}
+			if(matched==1)
+			{
+				count[i]=1;
+			}
+			else
+				count[i]=0;
+		}
+		else
+			count[i]=0;
+	}
+	else
+		count[i]=0;
+}
+
+int main(void)
+{
+	char str[100],substring[100];
+	int n,m;
+	printf("\nEnter the string: ");
+	gets(str);
+	n=strlen(str);
+	printf("\nEnter the word: ");
+	gets(substring);
+	gets(substring);
+	m=strlen(substring);
+	char *d_str,*d_sub;
+	int countAns=0;
+	int *c_arr;
+	int countArr[100];
+	cudaMalloc((void**)&d_str,(n+1)*sizeof(char));
+	cudaMalloc((void**)&d_sub,m*sizeof(char));
+	cudaMalloc((void**)&c_arr,(n-m+1)*sizeof(int));
+
+	cudaMemcpy(d_str,str,(n+1)*sizeof(char),cudaMemcpyHostToDevice);
+	cudaMemcpy(d_sub,substring,m*sizeof(char),cudaMemcpyHostToDevice);
+
+	cudaError_t error = cudaGetLastError();
+	if(error != cudaSuccess)
+	{
+		printf("CUDA Error: %s\n",cudaGetErrorString(error));
+	}
+
+	FindWordCount<<<1,n-m+1>>>(d_str,d_sub,m,c_arr); //n threads
+
+	error = cudaGetLastError();
+	if(error != cudaSuccess)
+	{
+		printf("CUDA Error: %s\n",cudaGetErrorString(error));
+	}
+
+	cudaMemcpy(countArr,c_arr,(n-m+1)*sizeof(int),cudaMemcpyDeviceToHost);
+	countAns=0;
+	for(int i=0;i<n-m+1;i++)
+		countAns+=countArr[i];
+	printf("The word was found %d times\n",countAns);
+	cudaFree(d_str);
+	cudaFree(d_sub);
+	cudaFree(c_arr);
+	return 0;
+}
+
