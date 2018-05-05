@@ -16,15 +16,15 @@ void connectlevel(Node *root)
    q.push(NULL);
    while(!q.empty())
    {
-   	   Node *temp=q.front();
+       Node *temp=q.front();
        q.pop();
        if(temp!=NULL)
           {
      	     temp->nextright=q.front();
              if(temp->left)
                {
-        	       q.push(temp->left);
-        	   }
+        	      q.push(temp->left);
+               }
              if(temp->right)
                {
         	      q.push(temp->right);
