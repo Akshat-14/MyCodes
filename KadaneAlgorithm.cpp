@@ -1,16 +1,14 @@
 #include<iostream>
 #include<climits>
 using namespace std;
- 
+
 void maxSubArraySum(int a[], int size)
 {
-    int maxsofar = INT_MIN, maxendinghere = 0,
-       start =0, end = 0, s=0;
+    int maxsofar = INT_MIN, maxendinghere = 0,start =0, end = 0, s=0;
  
     for (int i=0; i< size; i++ )
     {
         maxendinghere += a[i];
- 
         if (maxsofar < maxendinghere)
         {
             maxsofar = maxendinghere;
@@ -30,7 +28,6 @@ void maxSubArraySum(int a[], int size)
         cout<<a[i]<<" ";
 }
  
-/*Driver program to test maxSubArraySum*/
 int main()
 {
     int n,a[100] ;
