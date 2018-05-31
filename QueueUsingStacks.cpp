@@ -30,9 +30,6 @@ Queue()
       s1.push(s2.top());
       s2.pop();
     }
-    /*stack <int> temp = s1;
-    s1=s2;
-    s2=temp;*/
     cout<<n<<" pushed to queue"<<endl;
   }
   void pop()
@@ -49,7 +46,7 @@ Queue()
   int top()
   {
   	if(length==0)
-    {
+        {
   		return -1;
   	}
   	return s1.top();
