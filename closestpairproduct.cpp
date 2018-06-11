@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 #include<iostream>
 using namespace std;
-void bruteforce(int arr[],int n,int x)  //O(n^2)
+void bruteforce(int arr[],int n,int x)  //O(N^2)
 { 
 	int y = INT_MAX;
 	int pro;
@@ -24,7 +24,7 @@ void bruteforce(int arr[],int n,int x)  //O(n^2)
 	cout<<"-----Brute Force-----";
 	cout<<low<<" "<<high<<endl;    
 }
-void optimized(int arr[],int n,int x)
+void optimized(int arr[],int n,int x)  //O(NlogN) because of sorting // O(N) for sorted //
 {
 	sort(arr,arr+n);
 	int y = INT_MAX;
