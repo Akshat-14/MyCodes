@@ -67,7 +67,7 @@ void mergesort(int a[],int l,int r)
 int main()
 {
 	int n;
-	vector <int> a;
+	int a[100];
 	cout<<"Enter n:";
 	cin>>n;
 	cout<<"Enter array:";
