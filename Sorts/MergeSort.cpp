@@ -1,6 +1,6 @@
-#include <iostream>
+//Merge Sort ---- O(NlogN)
+//Stable SORt ---- YES
 #include <bits/stdc++.h>
-#include <algorithm>
 using namespace std;
 void merge(int a[],int l,int m,int r)
 {
