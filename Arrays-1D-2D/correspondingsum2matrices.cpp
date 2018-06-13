@@ -34,11 +34,11 @@ int countPairs(int a[][10],int b[][10],int sum,int r1,int c1,int r2,int c2)
 int main() 
 {
 	int r1,c1,r2,c2,sum;
-//	cout<<"Enter sum:";
+	cout<<"Enter sum:";
 	cin>>sum;
-//	cout<<"Dimensions of matrix 1:";
+	cout<<"Dimensions of matrix 1:";
 	cin>>r1>>c1;
-//	cout<<"Dimensions of matrix 2:";
+	cout<<"Dimensions of matrix 2:";
 	cin>>r2>>c2;
 	int a[10][10],b[10][10];
 	for(int i=0;i<r1;i++)
